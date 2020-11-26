@@ -1,0 +1,30 @@
+version: "3.6"
+
+services:
+  app:
+    build:
+      context: .
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    restart: always
+    ports:
+      - "7000:7000"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: daniel
+      POSTGRES_PASSWORD: nihao
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
